@@ -1,0 +1,19 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: store-book-service
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+          auto-add-partitions: true
+      function:
+        bindings:
+          storeProcessing-in-0: input
+      bindings:
+        input:
+          destination: check-topic
+          group: books
+          binder: kafka

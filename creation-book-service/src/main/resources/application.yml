@@ -1,0 +1,23 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: creation-book-service
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+          auto-add-partitions: true
+      function:
+        bindings:
+          bookProcessing-out-0: output
+      bindings:
+        output:
+          destination: book-topic
+  kafka:
+    admin:
+      properties:
+        replication.factor: 1
+        partitions: 3
+

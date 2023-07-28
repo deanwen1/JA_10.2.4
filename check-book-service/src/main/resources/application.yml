@@ -1,0 +1,26 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: check-book-service
+
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+          auto-add-partitions: true
+      function:
+        bindings:
+          checkProcessing-in-0: input
+          checkProcessing-out-0: output
+      bindings:
+        input:
+          destination: book-topic
+          group: books
+          binder: kafka
+        output:
+          destination: check-topic
+          group: books
+          binder: kafka
